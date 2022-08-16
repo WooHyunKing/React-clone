@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-    
+    <div id="root"></div>
 </body>
 <!-- React/ReactDom import -->
+<!-- ReactJS의 첫 번째 규칙 : HTML을 이 페이지에 직접 작성X, React와 JS 코드를 사용하여 element 생성 -->
 <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
 <script>
+    const root = document.getElementById("root");
+    //React는 interactive한 UI를 만들 수 있게 하는 엔진과 같은 역할
+    const span = React.createElement("span",{id:"sexy-span",style:{color:"red"}},"Hello, I'm a span");
+    //React-Dom은 모든 React element들을 HTML에 둘 수 있도록 하는 역할
+    //render란 react element를 가지고 HTML로 만들어 배치한다, 즉 사용자에게 보여준다는 의미
+    ReactDOM.render(span,root);
 </script>
 </html>

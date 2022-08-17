@@ -18,31 +18,40 @@
 
     //첫번째 : JS를 이용해 element 생성
     const root = document.getElementById("root");
-    let counter = 0;
-
-    function countUp() {
-      counter = counter + 1;
-      render();
-    }
-
-    function render() {
-      ReactDOM.render(<Container />, root);
-    }
 
     //addEventListener를 반복하는 것 대신에 property에 event를 등록할 수 있음
 
     //우리가 만든 컴포넌트의 첫 글자는 반드시 대문자이여야함 (중요 !!!)
+
     //JSX는 어플리케이션을 여러가지 작은 요소로 나누어서 관리할 수 있게 함
-    //React element를 함수(컴포넌트) 내에 담음으로써 코드의 재사용성을 높여줌
-    const Container = () => (
-      <div>
-        <h3>Total clicks: {counter}</h3>
-        <button onClick={countUp}>Click me!!!</button>
-      </div>
-    );
+    //React element를 함수(컴포넌트) 내에 담음으로써 코드의 재사용성을 높여줌 !
+
+    //1. 컴포넌트나 JSX에 변수를 추가하고 싶다면 state와 {}를 사용하면 됨
+    //2. UI를 업데이트하고 싶다면 리렌더링 하면 됨
+
+    //state가 바뀔 때 마다 리렌더링하면 해당하는 component도 바뀐 state를 가지고 재생성 되지만 리액트는 바뀐 값만 리렌더링함(Intetactive)
+    //즉, 리렌더링 할때마다 컴포넌트 전체를 리렌더링하는데 이는 새 컴포넌트를 재생성하는 것이 아니라 실제 HTML코드에서는 바뀐 값만 업데이트 되는 것임
+    //함수(컴포넌트)는 React element를 반환
+
+    function App() {
+      // let counter=0;
+      // function countUp(){}
+
+      //React.useState의 반환 값은 [data, F]와 같이 초기값 데이터와 데이터를 업데이트 할때 사용하는 함수 하나를 가지는 배열, 위 코드와 동일한 역할
+      const [counter, modifier] = React.useState(0);
+
+      return (
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button>Click me!!!</button>
+        </div>
+      );
+    }
 
     //두번째 : ReactJS가 생성한 element를 HTML로 번역
     //render란 react element를 가지고 HTML로 만들어 배치한다, 즉 사용자에게 보여준다는 의미
-    render();
+
+    //React.js 어플 내에서 데이터를 보관하고 자동으로 리렌더링을 일으킬 수 있는 최고의 방법
+    ReactDOM.render(<App />, root);
   </script>
 </html>

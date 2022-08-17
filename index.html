@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<body>
+  <body>
     <div id="root"></div>
-</body>
-<!-- React/ReactDom import -->
-<!-- ReactJS의 첫 번째 규칙 : HTML을 이 페이지에 직접 작성X, React와 JS 코드를 사용하여 element 생성 -->
-<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-<script>
+  </body>
+  <!-- React/ReactDom import -->
+  <!-- ReactJS의 첫 번째 규칙 : HTML을 이 페이지에 직접 작성X, React와 JS 코드를 사용하여 element 생성 -->
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
     //리액트의 방식 : 모든 것이 JS에서 시작해서 HTML에서 끝남 (핵심), 유저에게 보여질 내용(element)를 컨트롤할 수 있음
     //React는 interactive한 UI를 만들 수 있게 하는 엔진과 같은 역할
     //React-Dom은 모든 React element들을 HTML에 둘 수 있도록 하는 역할
@@ -17,23 +18,50 @@
 
     //첫번째 : JS를 이용해 element 생성
     const root = document.getElementById("root");
-    const h3 = React.createElement("h3",{
-        id:"title",
-        onMouseEnter:()=>console.log("Mouse entered!"),
-    },"Hello, I'm a h3");
+    const Title = () => (
+      <h3 id="title" onMouseEnter={() => console.log("Mouse entered!")}>
+        Hello I'm a title
+      </h3>
+    );
+
+    // const h3 = React.createElement("h3",{
+    //     id:"title",
+    //     onMouseEnter:()=>console.log("Mouse entered!"),
+    // },"Hello, I'm a h3");
 
     //addEventListener를 반복하는 것 대신에 property에 event를 등록할 수 있음
 
-    const btn=React.createElement("button",{
-        style:{
-            backgroundColor:"tomato",
-        },
-        onClick:()=>console.log("I'm clicked!"),
-    },"click me!!!");
-    const container=React.createElement("div",null,[h3,btn]);
+    const Button = () => (
+      <button
+        style={{
+          backgroundColor: "tomato",
+        }}
+        onClick={() => console.log("I'm clicked!")}
+      >
+        Click me!!!
+      </button>
+    );
+
+    // const btn=React.createElement("button",{
+    //     style:{
+    //         backgroundColor:"tomato",
+    //     },
+    //     onClick:()=>console.log("I'm clicked!"),
+    // },"click me!!!");
+
+    //const container=React.createElement("div",null,[Title,Button]);
+
+    //우리가 만든 컴포넌트의 첫 글자는 반드시 대문자이여야함 (중요 !!!)
+    //JSX는 어플리케이션을 여러가지 작은 요소로 나누어서 관리할 수 있게 함
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
 
     //두번째 : ReactJS가 생성한 element를 HTML로 번역
     //render란 react element를 가지고 HTML로 만들어 배치한다, 즉 사용자에게 보여준다는 의미
-    ReactDOM.render(container,root);
-</script>
+    ReactDOM.render(<Container />, root);
+  </script>
 </html>

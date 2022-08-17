@@ -38,12 +38,18 @@
       // function countUp(){}
 
       //React.useState의 반환 값은 [data, F]와 같이 초기값 데이터와 데이터를 업데이트 할때 사용하는 함수 하나를 가지는 배열, 위 코드와 동일한 역할
-      const [counter, modifier] = React.useState(0);
+      //modifier 함수는 값을 업데이트하고 리렌더링을 일으킴
+      const [counter, setCounter] = React.useState(0);
+      const onClick = () => {
+        //counter=111;
+        //ReactDOM.render(<App/>,root)
+        setCounter(counter + 1);
+      };
 
       return (
         <div>
           <h3>Total clicks: {counter}</h3>
-          <button>Click me!!!</button>
+          <button onClick={onClick}>Click me!!!</button>
         </div>
       );
     }

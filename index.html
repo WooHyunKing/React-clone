@@ -43,6 +43,12 @@
       //결론 : React.js 에서는 state가 바뀌면, React가 컴포넌트를 재생성+리렌더링 해준다 !
       const [counter, setCounter] = React.useState(0);
       const onClick = () => {
+        // state를 세팅하는 데는 2가지 방법이 있다.
+        // 1) 직접 할당 :setState(state +1)
+        // 2)함수를 할당:setState(state => state +1) (함수의 첫번째 인자는 현재 state 이다)
+
+        // 현재 state랑 관련이 없는 값을 새로운 state로 하고싶은 경우에는 (1),
+        // 현재 state에 조금의 변화를 주어서 새로운 state를 주고 싶은 경우에는 (2)
         //현재 state를 기반으로 다음 state를 계산을 하고 싶다면 함수를 사용 !
         //setCounter(counter + 1);
         setCounter((current) => current + 1);

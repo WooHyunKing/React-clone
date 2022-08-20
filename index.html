@@ -44,12 +44,12 @@
       const [counter, setCounter] = React.useState(0);
       const onClick = () => {
         // state를 세팅하는 데는 2가지 방법이 있다.
-        // 1) 직접 할당 :setState(state +1)
+        // 1)직접 할당 :setState(state +1)
         // 2)함수를 할당:setState(state => state +1) (함수의 첫번째 인자는 현재 state 이다)
 
         // 현재 state랑 관련이 없는 값을 새로운 state로 하고싶은 경우에는 (1),
         // 현재 state에 조금의 변화를 주어서 새로운 state를 주고 싶은 경우에는 (2)
-        //현재 state를 기반으로 다음 state를 계산을 하고 싶다면 함수를 사용 !
+        // 현재 state를 기반으로 다음 state를 계산을 하고 싶다면 함수를 사용 !
         //setCounter(counter + 1);
         setCounter((current) => current + 1);
       };
@@ -101,7 +101,18 @@
     }
 
     function KmToMiles() {
-      return <h3>KM 2 M</h3>;
+      return (
+        <div>
+          <div>
+            <label htmlFor="kms">Kms</label>
+            <input id="kms" type="number" placeholder="Kms" />
+          </div>
+          <div>
+            <label htmlFor="Miles">Miles</label>
+            <input id="miles" type="number" placeholder="Miles" />
+          </div>
+        </div>
+      );
     }
 
     function App() {

@@ -101,16 +101,48 @@
     }
 
     function KmToMiles() {
+      const [distance, setDistance] = React.useState(0);
+      const [enable, setEnable] = React.useState(true);
+
+      const onChange2 = (event) => {
+        setDistance(event.target.value);
+      };
+
+      const onReset = () => {
+        setDistance(0);
+      };
+
+      const onFlip2 = () => {
+        setEnable((current) => !current);
+        onReset();
+      };
+
       return (
         <div>
           <div>
             <label htmlFor="kms">Kms</label>
-            <input id="kms" type="number" placeholder="Kms" />
+            <input
+              onChange={onChange2}
+              value={enable ? distance : distance * 1.609}
+              id="kms"
+              type="number"
+              placeholder="Kms"
+              disabled={!enable}
+            />
           </div>
           <div>
             <label htmlFor="Miles">Miles</label>
-            <input id="miles" type="number" placeholder="Miles" />
+            <input
+              value={enable ? distance * 0.6214 : distance}
+              onChange={onChange2}
+              id="miles"
+              type="number"
+              placeholder="Miles"
+              disabled={enable}
+            />
           </div>
+          <button onClick={onReset}>Reset</button>
+          <button onClick={onFlip2}>Flip</button>
         </div>
       );
     }

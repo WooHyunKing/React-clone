@@ -36,16 +36,17 @@
     //Component는 JSX를 반환하는 "함수"이다.
     //Props는 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있는 일종의 방식
     //함수를 호출하여 컴포넌트를 렌더링하는 것, 이 컴포넌트를 '함수형 컴포넌트'라고 한다
-    function Btn({ text, big }) {
+    function Btn({ text, changeValue }) {
+      console.log(text, "was rendered");
       return (
         <button
+          onClick={changeValue}
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: big ? 18 : 15,
           }}
         >
           {text}
@@ -53,12 +54,23 @@
       );
     }
 
+    //부모 컴포넌트의 state에 변경이 생기면 모든 자식들은 다시 그려진다(Re-render)
+    //이는 추후에 내 어플리케이션이 느려지는 원인이 될 수 있음
+    //따라서 state의 변경(props의 변경)이 일어나지 않은 컴포넌트는 React.memo()를 통해 Re-render를 방지할 수 있음
+    const MemorizedBtn = React.memo(Btn);
+
     function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => {
+        setValue("Revert Changes");
+      };
+
       return (
         <div>
           {/*함수의 인자로 지정한 값들은 하나의 Object로 만들어져 컴포넌트에 전달된다*/}
-          <Btn text="Save Changes" big={true} />
-          <Btn text="Continue" big={false} />
+          {/*컴포넌트에 전달되는 function은 eventListener가 아니라 단순히 prop이므로 바로 이벤트가 적용되지 않음, 태그에 직접 적용시켜줘야함*/}
+          <MemorizedBtn text={value} changeValue={changeValue} />
+          <MemorizedBtn text="Continue" />
         </div>
       );
     }

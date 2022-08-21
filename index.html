@@ -33,135 +33,32 @@
     //즉, 리렌더링 할때마다 컴포넌트 전체를 리렌더링하는데 이는 새 컴포넌트를 재생성하는 것이 아니라 실제 HTML코드에서는 바뀐 값만 업데이트 되는 것임
     //함수(컴포넌트)는 React element를 반환
 
-    function MinutesToHours() {
-      // let counter=0;
-      // function countUp(){}
-
-      //React.useState의 반환 값은 [data, F]와 같이 초기값 데이터와 데이터를 업데이트 할때 사용하는 함수 하나를 가지는 배열, 위 코드와 동일한 역할
-      //modifier 함수는 값을 업데이트하고 리렌더링을 일으킴
-      //modifier 함수로 state를 바꿀 때 마다 컴포넌트 자체가 재생성되고, 새로운 값을 가지고 리렌더링됨
-      //결론 : React.js 에서는 state가 바뀌면, React가 컴포넌트를 재생성+리렌더링 해준다 !
-      const [counter, setCounter] = React.useState(0);
-      const onClick = () => {
-        // state를 세팅하는 데는 2가지 방법이 있다.
-        // 1)직접 할당 :setState(state +1)
-        // 2)함수를 할당:setState(state => state +1) (함수의 첫번째 인자는 현재 state 이다)
-
-        // 현재 state랑 관련이 없는 값을 새로운 state로 하고싶은 경우에는 (1),
-        // 현재 state에 조금의 변화를 주어서 새로운 state를 주고 싶은 경우에는 (2)
-        // 현재 state를 기반으로 다음 state를 계산을 하고 싶다면 함수를 사용 !
-        //setCounter(counter + 1);
-        setCounter((current) => current + 1);
-      };
-
-      const [amount, setAmount] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(true);
-
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-
-      const reset = () => {
-        setAmount(0);
-      };
-
-      const onFlip = () => {
-        setFlipped((current) => !current);
-        reset();
-      };
-
+    //Component는 JSX를 반환하는 "함수"이다.
+    //Props는 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있는 일종의 방식
+    //함수를 호출하여 컴포넌트를 렌더링하는 것, 이 컴포넌트를 '함수형 컴포넌트'라고 한다
+    function Btn({ text, big }) {
       return (
-        <div>
-          <div>
-            <label htmlFor="minutes">Minutes</label>
-            <input
-              value={flipped ? amount : amount * 60}
-              id="minutes"
-              placeholder="Minutes"
-              type="number"
-              onChange={onChange}
-              disabled={!flipped}
-            />
-          </div>
-          <div>
-            <label htmlFor="hours">Hours</label>
-            <input
-              value={flipped ? Math.round(amount / 60) : amount}
-              id="hours"
-              placeholder="Hours"
-              type="number"
-              onChange={onChange}
-              disabled={flipped}
-            />
-          </div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>Flip</button>
-        </div>
-      );
-    }
-
-    function KmToMiles() {
-      const [distance, setDistance] = React.useState(0);
-      const [enable, setEnable] = React.useState(true);
-
-      const onChange2 = (event) => {
-        setDistance(event.target.value);
-      };
-
-      const onReset = () => {
-        setDistance(0);
-      };
-
-      const onFlip2 = () => {
-        setEnable((current) => !current);
-        onReset();
-      };
-
-      return (
-        <div>
-          <div>
-            <label htmlFor="kms">Kms</label>
-            <input
-              onChange={onChange2}
-              value={enable ? distance : distance * 1.609}
-              id="kms"
-              type="number"
-              placeholder="Kms"
-              disabled={!enable}
-            />
-          </div>
-          <div>
-            <label htmlFor="Miles">Miles</label>
-            <input
-              value={enable ? distance * 0.6214 : distance}
-              onChange={onChange2}
-              id="miles"
-              type="number"
-              placeholder="Miles"
-              disabled={enable}
-            />
-          </div>
-          <button onClick={onReset}>Reset</button>
-          <button onClick={onFlip2}>Flip</button>
-        </div>
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize: big ? 18 : 15,
+          }}
+        >
+          {text}
+        </button>
       );
     }
 
     function App() {
-      const [index, setIndex] = React.useState("0");
-      const onSelect = (event) => {
-        setIndex(event.target.value);
-      };
       return (
         <div>
-          <h1>Super Converter</h1>
-          <select value={index} onChange={onSelect}>
-            <option value="0">Minutes & Hours</option>
-            <option value="1">Km & Miles</option>
-          </select>
-          <hr />
-          {index === "0" ? <MinutesToHours /> : null}
-          {index === "1" ? <KmToMiles /> : null}
+          {/*함수의 인자로 지정한 값들은 하나의 Object로 만들어져 컴포넌트에 전달된다*/}
+          <Btn text="Save Changes" big={true} />
+          <Btn text="Continue" big={false} />
         </div>
       );
     }
